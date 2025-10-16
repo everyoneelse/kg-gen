@@ -135,11 +135,26 @@ source /opt/rh/devtoolset-9/enable
 
 ## 模型推荐
 
-| 用途 | 推荐模型 | 内存需求 | 性能 |
-|------|----------|----------|------|
-| 快速测试 | ollama/llama3.2 | 8GB | 中等 |
-| 中文处理 | ollama/qwen2.5:7b | 14GB | 高 |
-| 高质量输出 | ollama/llama3.1:8b | 16GB | 高 |
-| 资源受限 | ollama/mistral:7b | 8GB | 中等 |
+| 用途 | 推荐模型 | 内存需求 | 性能 | max_tokens 限制 |
+|------|----------|----------|------|----------------|
+| 快速测试 | ollama/llama3.2 | 8GB | 中等 | 4000+ |
+| 中文处理 | ollama/qwen2.5:7b | 14GB | 高 | 4000+ |
+| 高质量输出 | ollama/llama3.1:8b | 16GB | 高 | 4000+ |
+| 资源受限 | ollama/mistral:7b | 8GB | 中等 | 4000+ |
+| 中文对话 | deepseek/deepseek-chat | 云端 | 高 | **8192** |
+
+### 重要提示: max_tokens 限制
+
+不同模型对 `max_tokens` 有不同的限制：
+
+- **Deepseek 模型**: 最大 8192 tokens
+- **GPT-4/GPT-3.5**: 通常 4000-8000 tokens  
+- **开源模型 (Llama, Qwen 等)**: 通常 2000-4000 tokens
+- **GPT-5 系列**: 最小 16000 tokens
+
+如果遇到 `max_tokens` 相关错误，请：
+1. 检查模型的 token 限制
+2. 相应调整配置中的 `max_tokens` 值
+3. 考虑使用 `chunk_size` 参数分块处理长文本
 
 选择适合你的硬件配置和需求的模型即可开始使用！
