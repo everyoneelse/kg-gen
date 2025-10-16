@@ -6,23 +6,23 @@ import os  # noqa: F401
 text = """
 A Place for Demons
 IT WAS FELLING NIGHT, and the usual crowd had gathered at the
-Waystone Inn. Five wasn’t much of a crowd, but five was as many as the
+Waystone Inn. Five wasn't much of a crowd, but five was as many as the
 Waystone ever saw these days, times being what they were.
 Old Cob was filling his role as storyteller and advice dispensary. The
 men at the bar sipped their drinks and listened. In the back room a young
 innkeeper stood out of sight behind the door, smiling as he listened to the
 details of a familiar story.
-“When he awoke, Taborlin the Great found himself locked in a high
+"When he awoke, Taborlin the Great found himself locked in a high
 tower. They had taken his sword and stripped him of his tools: key, coin,
-and candle were all gone. But that weren’t even the worst of it, you see…”
-Cob paused for effect, “…cause the lamps on the wall were burning blue!”
+and candle were all gone. But that weren't even the worst of it, you see…"
+Cob paused for effect, "…cause the lamps on the wall were burning blue!"
 Graham, Jake, and Shep nodded to themselves. The three friends had
-grown up together, listening to Cob’s stories and ignoring his advice.
+grown up together, listening to Cob's stories and ignoring his advice.
 Cob peered closely at the newer, more attentive member of his small
-audience, the smith’s prentice. “Do you know what that meant, boy?”
-Everyone called the smith’s prentice “boy” despite the fact that he was a
+audience, the smith's prentice. "Do you know what that meant, boy?"
+Everyone called the smith's prentice "boy" despite the fact that he was a
 hand taller than anyone there. Small towns being what they are, he would
-most likely remain “boy” until his beard filled out or he bloodied someone’s
+most likely remain "boy" until his beard filled out or he bloodied someone's
 nose over the matter.
 """
 
@@ -57,6 +57,7 @@ LOCAL_MODEL_CONFIG = {
 #     "api_key": os.getenv("OPENAI_API_KEY"),
 # }
 
+# ========== 初始化 KGGen ==========
 print("正在初始化 KGGen，使用本地模型...")
 print(f"模型: {LOCAL_MODEL_CONFIG['model']}")
 
@@ -89,6 +90,11 @@ try:
     print(f"实体数量: {len(graph.entities)}")
     print(f"关系数量: {len(graph.relations)}")
     
+    # 生成可视化
+    print("正在生成可视化文件...")
+    KGGen.visualize(graph, "./examples/basic-graph.html", True)
+    print("可视化文件已保存到: ./examples/basic-graph.html")
+    
 except Exception as e:
     print(f"生成知识图谱时出错: {e}")
     print("\n故障排除提示:")
@@ -96,10 +102,6 @@ except Exception as e:
     print("2. 如果使用 Ollama，请确保已下载模型: ollama pull llama3.2")
     print("3. 如果使用 HuggingFace 模型，请确保有足够的内存")
     print("4. 检查网络连接和防火墙设置")
+
 # with open("./examples/graph.json", "r") as f:
 #     graph = Graph(**json.load(f))
-
-# 生成可视化
-print("正在生成可视化文件...")
-KGGen.visualize(graph, "./examples/basic-graph.html", True)
-print("可视化文件已保存到: ./examples/basic-graph.html")
